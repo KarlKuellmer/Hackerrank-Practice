@@ -1,0 +1,44 @@
+#Problem:  https://www.hackerrank.com/challenges/encryption/problem
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the encryption function below.
+def encryption(s):
+    sqr = math.sqrt(len(s))
+    
+    m = int(sqr)
+    n = m if sqr - int(sqr)==0 else m+1
+    print(m,n, len(s))
+    grid = []
+    for x in range(m+1):
+        word = s[x*n : min(x*n+n, len(s))]
+        grid.append(word)
+    print(grid)   
+    newgrid = ''   
+    for i in range(n):
+        row = ''
+        for j in range(len(grid)):
+            try:
+                add = grid[j][i]
+            except IndexError:
+                add = ''
+            row = row+ add
+        newgrid = newgrid  + row + " "
+    return newgrid
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = encryption(s)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
