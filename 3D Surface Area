@@ -1,0 +1,67 @@
+#Problem:  https://www.hackerrank.com/challenges/3d-surface-area/problem
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the surfaceArea function below.
+def surfaceArea(A):
+    depth = len(A)
+    width = len(A[0])
+    # Create B, which is like A, but with a row of zeros all around.  
+    #This allows us to just look at all four sides of each point of A, 
+    #without having to worry about if we are on the edge or not.
+    B = [[0]*(width+2)]*(depth+2)
+    
+    Total = 2*depth*width #top and bottom
+    
+    for x in range(depth):
+        temp = A[x]
+        temp.append(0)
+        temp.insert(0,0)
+        B[x+1]=temp
+        
+    for x in range(1, depth+1):
+        for y in range(1, width +1):
+            #count the four sides:
+            add = max(0, B[x][y] - B[x-1][y]  ) +  max(0, B[x][y] - B[x+1][y]  )+ max(0, B[x][y] - B[x][y-1]  )+ max(0, B[x][y] - B[x][y+1]  )
+            
+            Total +=add
+
+    return Total
+    
+    
+    
+        
+
+    
+    
+
+    
+
+    
+            
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    HW = input().split()
+
+    H = int(HW[0])
+
+    W = int(HW[1])
+
+    A = []
+
+    for _ in range(H):
+        A.append(list(map(int, input().rstrip().split())))
+
+    result = surfaceArea(A)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
