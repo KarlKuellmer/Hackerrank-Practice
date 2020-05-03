@@ -1,0 +1,48 @@
+#problem:  https://www.hackerrank.com/challenges/almost-sorted/problem
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the almostSorted function below.
+def almostSorted(arr):
+    toswap = []
+    how = []
+    sortarr = sorted(arr)
+    if arr == sortarr:
+        return 'Yes'
+    for x in range(len(arr)):
+        if sortarr[x] != arr[x]:
+            toswap.append(x)
+    
+    if len(toswap)==2:
+        arr[toswap[0]], arr[toswap[1]] = arr[toswap[1]], arr[toswap[0]]
+        how = 'yes'+"\n"+'swap '+ str(toswap[0]+1)+' '+str(toswap[1]+1)
+        if arr == sortarr:
+            print (how) 
+        
+        
+        
+    else:
+        
+        arr[min(toswap):max(toswap)+1]= arr[min(toswap):max(toswap)+1][::-1]
+        how = 'yes'+"\n"+'reverse '+ str(toswap[0]+1)+' '+str(toswap[-1]+1)
+        if arr == sortarr:
+            print (how) 
+        
+        
+       
+    if arr != sortarr:
+    
+        
+        print('no')
+if __name__ == '__main__':
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    almostSorted(arr)
